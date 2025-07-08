@@ -42,6 +42,17 @@ class Post(models.Model):
         if user.is_anonymous:
             return False
         return self.likes.filter(user=user).exists()
+    
+    def can_edit(self, user):
+        return user == self.author or user.is_superuser
+    
+    def can_delete(self, user):
+        return user == self.author or user.is_superuser
+    
+    def update(self, title, text):
+        self.title = title
+        self.text = text
+        self.save
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')

@@ -1,0 +1,7 @@
+{% if post.can_edit request.user %}
+    <a href="{% url 'edit_post' post.id %}" class="btn btn-edit">Редактировать</a>
+{% endif %}
+
+{% if post.can_delete request.user %}
+    <a href="{% url 'delete_post' post.id %}" class="btn btn-delete">Удалить</a>
+{% endif %}
